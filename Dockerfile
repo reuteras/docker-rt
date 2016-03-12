@@ -65,7 +65,7 @@ RUN echo mail > /etc/hostname; \
     cpanm git://github.com/gbarr/perl-TimeDate.git && \
     chown rt-service:www-data /opt/rt4 && \
 # Clean up
-    apt-get remove -y build-essential && \
+    apt-get remove -y build-essential git cpanminus && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /tmp/rt && \
