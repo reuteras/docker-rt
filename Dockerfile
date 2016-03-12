@@ -1,16 +1,19 @@
 FROM debian:jessie
 MAINTAINER Peter Reuterås <peter@reuteras.net>
 
+# Perl settings -n to don't to tests
+ENV RT_FIX_DEPS_CMD /usr/bin/cpanm
+ENV PERL_CPANM_OPT -n
+
 # Config Postfix
 RUN echo mail > /etc/hostname; \
     echo "postfix postfix/main_mailer_type string Internet site" > \
         preseed.txt && \
     echo "postfix postfix/mailname string mail.example.com" >> \
         preseed.txt && \
-    debconf-set-selections preseed.txt
-
+    debconf-set-selections preseed.txt && \
 ## Install tools and libraries
-RUN apt-get update -yqq && \
+    apt-get update -yqq && \
     apt-get install -yqq --no-install-recommends \
         build-essential \
         ca-certificates \
@@ -31,18 +34,12 @@ RUN apt-get update -yqq && \
         ssl-cert \
         supervisor && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/
-
+    rm -rf /var/lib/apt/lists/* && \
 # Create user and group
-RUN groupadd -r rt-service && \
+    groupadd -r rt-service && \
     useradd -r -g rt-service -G www-data rt-service && \
-    usermod -a -G rt-service www-data
-
-# Perl settings -n to don't to tests
-ENV RT_FIX_DEPS_CMD /usr/bin/cpanm
-ENV PERL_CPANM_OPT -n
-
-RUN mkdir -p --mode=750 /opt/rt4 && \
+    usermod -a -G rt-service www-data && \
+    mkdir -p --mode=750 /opt/rt4 && \
     mkdir -p /tmp/rt && \
     curl -SL https://download.bestpractical.com/pub/rt/release/rt.tar.gz | \
         tar -xzC /tmp/rt && \
@@ -66,15 +63,16 @@ RUN mkdir -p --mode=750 /opt/rt4 && \
     make testdeps && \
     make config-install dirs files-install fixperms instruct && \
     cpanm git://github.com/gbarr/perl-TimeDate.git && \
-    chown rt-service:www-data /opt/rt4
-
+    chown rt-service:www-data /opt/rt4 && \
 # Clean up
-RUN apt-get remove -y build-essential && \
+    apt-get remove -y build-essential git cpanminus && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /tmp/rt && \
     rm -rf /root/.cpan && \
-    rm -rf /root/.cpanm
+    rm -rf /root/.cpanm && \
+    rm -rf /preseed.txt /opt/rt4/docs /usr/share/doc && \
+    rm -rf /usr/local/share/man /var/cache/debconf/*-old
 
 # Copy files to docker
 COPY entrypoint.sh /entrypoint.sh
