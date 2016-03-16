@@ -33,8 +33,6 @@ RUN echo mail > /etc/hostname; \
         postgresql-client \
         ssl-cert \
         supervisor && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
 # Create user and group
     groupadd -r rt-service && \
     useradd -r -g rt-service -G www-data rt-service && \
@@ -68,6 +66,7 @@ RUN echo mail > /etc/hostname; \
     apt-get remove -y build-essential git cpanminus && \
     apt-get autoremove -y && \
     apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/rt && \
     rm -rf /root/.cpan && \
     rm -rf /root/.cpanm && \
