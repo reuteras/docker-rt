@@ -19,6 +19,23 @@ To run docker-rt (change to your full path to files specified above):
 * `-e RT_HOSTNAME=<RT server hostname>`
 * `-e RT_RELAYHOST=<Postfix relay host>`
 
+## Upgrade from 4.2.12 to 4.4.x
+
+The steps I took:
+
+    # Backup database first
+    docker stop rt
+    run -ti -p 443:443 -e RT_HOSTNAME=<hostname> -e RT_RELAYHOST=<host> -v /docker:/data:ro --name rt44 -d reuteras/docker-rt
+    docker exec -ti rt44 /bin/bash
+    rt# cd /opt/rt4
+    rt# ./rt-setup-database --action upgrade
+    rt# exit
+    # Clean up and restart with correct name
+    docker stop rt44
+    docker rm rt
+    docker rm rt44
+    run -ti -p 443:443 -e RT_HOSTNAME=<hostname> -e RT_RELAYHOST=<host> -v /docker:/data:ro --name rt -d reuteras/docker-rt
+
 ## TODO
 Lots of things.
 
