@@ -36,6 +36,8 @@ The steps I took:
     docker rm rt44
     run -ti -p 443:443 -e RT_HOSTNAME=<hostname> -e RT_RELAYHOST=<host> -v /docker:/data:ro --name rt -d reuteras/docker-rt
 
+The same steps can be used for upgrades from 4.4.x to 4.4.y where y>x.
+
 ## TODO
 Lots of things.
 
