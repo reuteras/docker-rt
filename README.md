@@ -1,6 +1,6 @@
 # docker-rt
 
-[RT](https://www.bestpractical.com/rt/), or Request Tracker, is a issue tracking system. Currently build with RT 4.2.12.
+[RT](https://www.bestpractical.com/rt/), or Request Tracker, is a issue tracking system. Currently build with RT 4.2.13.
 
 ## Features
 
