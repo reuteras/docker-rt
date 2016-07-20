@@ -28,7 +28,7 @@ The steps I took:
     run -ti -p 443:443 -e RT_HOSTNAME=<hostname> -e RT_RELAYHOST=<host> -v /docker:/data:ro --name rt44 -d reuteras/docker-rt
     docker exec -ti rt44 /bin/bash
     rt# cd /opt/rt4
-    rt# ./rt-setup-database --action upgrade
+    rt# ./sbin/rt-setup-database --action upgrade
     rt# exit
     # Clean up and restart with correct name
     docker stop rt44
