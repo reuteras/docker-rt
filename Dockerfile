@@ -22,6 +22,7 @@ RUN echo mail > /etc/hostname; \
         git \
         gpgv2 \
         graphviz \
+        make \
         libexpat1-dev \
         libpq-dev \
         libgd-dev \
@@ -38,6 +39,7 @@ RUN echo mail > /etc/hostname; \
     useradd -r -g rt-service -G www-data rt-service && \
     usermod -a -G rt-service www-data && \
     mkdir -p --mode=750 /opt/rt4 && \
+    chown rt-service:www-data /opt/rt4 && \
     mkdir -p /tmp/rt && \
     curl -SL https://download.bestpractical.com/pub/rt/release/rt.tar.gz | \
         tar -xzC /tmp/rt && \
@@ -61,16 +63,15 @@ RUN echo mail > /etc/hostname; \
     make testdeps && \
     make config-install dirs files-install fixperms instruct && \
     cpanm git://github.com/gbarr/perl-TimeDate.git && \
-    chown rt-service:www-data /opt/rt4 && \
 # Clean up
-    apt-get remove -y build-essential git cpanminus && \
+    apt-get remove -y git cpanminus build-essential && \
     apt-get autoremove -y && \
     apt-get clean && \
+    apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* && \
-    rm -rf /tmp/rt && \
     rm -rf /root/.cpan && \
     rm -rf /root/.cpanm && \
-    rm -rf /preseed.txt /opt/rt4/docs /usr/share/doc && \
+    rm -rf /preseed.txt /usr/share/doc && \
     rm -rf /usr/local/share/man /var/cache/debconf/*-old
 
 # Copy files to docker
