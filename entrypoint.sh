@@ -36,12 +36,12 @@ EOF
 
 chmod +x /opt/postfix.sh
 
-postconf -e myhostname=$RT_HOSTNAME
+postconf -e myhostname="$RT_HOSTNAME"
 postconf -e inet_interfaces=loopback-only
 postconf -e inet_protocols=ipv4
-postconf -e mydestination=$RT_HOSTNAME,localhost
-postconf -e myhostname=$RT_HOSTNAME
+postconf -e mydestination="$RT_HOSTNAME",localhost
+postconf -e myhostname="$RT_HOSTNAME"
 postconf -e mynetworks=127.0.0.0/8
-postconf -e relayhost=$RT_RELAYHOST
+postconf -e relayhost="$RT_RELAYHOST"
 
 exec "$@"
