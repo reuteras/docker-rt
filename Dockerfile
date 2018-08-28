@@ -1,5 +1,5 @@
 FROM debian:jessie
-MAINTAINER Peter Reuterås <peter@reuteras.net>
+MAINTAINER PR <code@reuteras.se>                                                                                                                                                                                                                                                                                                                                            
 
 # Perl settings -n to don't to tests
 ENV RT_FIX_DEPS_CMD /usr/bin/cpanm
