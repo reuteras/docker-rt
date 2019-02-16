@@ -1,5 +1,5 @@
-FROM debian:jessie
-MAINTAINER PR <code@reuteras.se>
+FROM debian:stretch
+MAINTAINER PR <code@ongoing.today>
 
 # Perl settings -n to don't to tests
 ENV RT_FIX_DEPS_CMD /usr/bin/cpanm
@@ -21,6 +21,7 @@ RUN echo mail > /etc/hostname; \
         curl \
         git \
         gpgv2 \
+        gnupg \
         graphviz \
         make \
         libexpat1-dev \
@@ -46,6 +47,8 @@ RUN echo mail > /etc/hostname; \
     cd /tmp/rt/rt* && \
     echo "o conf init " | \
         perl -MCPAN -e shell && \
+    cpan install inc::Module::Install  && \
+    cpan install inc::Module::Package && \
     ./configure \
         --enable-graphviz \
         --enable-gd \
