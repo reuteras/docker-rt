@@ -13,8 +13,8 @@ RUN echo mail > /etc/hostname; \
         preseed.txt && \
     debconf-set-selections preseed.txt && \
 ## Install tools and libraries
-    apt-get update -yqq && \
-    apt-get install -yqq --no-install-recommends \
+    apt update -yqq && \
+    apt install -yqq --no-install-recommends \
         build-essential \
         ca-certificates \
         cpanminus \
@@ -67,10 +67,10 @@ RUN echo mail > /etc/hostname; \
     make config-install dirs files-install fixperms instruct && \
     cpanm git://github.com/gbarr/perl-TimeDate.git && \
 # Clean up
-    apt-get remove -y git cpanminus build-essential && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    apt-get autoclean && \
+    apt remove -y git cpanminus build-essential && \
+    apt autoremove -y && \
+    apt clean && \
+    apt autoclean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /root/.cpan && \
     rm -rf /root/.cpanm && \
