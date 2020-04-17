@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:jessie
 MAINTAINER PR <code@ongoing.today>
 
 # Perl settings -n to don't to tests
@@ -23,8 +23,8 @@ RUN echo mail > /etc/hostname; \
         gpgv2 \
         gnupg \
         graphviz \
-        make \
         libexpat1-dev \
+        libio-socket-ssl-perl \
         libpq-dev \
         libgd-dev \
         libssl-dev \
@@ -47,9 +47,6 @@ RUN echo mail > /etc/hostname; \
     cd /tmp/rt/rt* && \
     echo "o conf init " | \
         perl -MCPAN -e shell && \
-    cpan install inc::Module::Install  && \
-    cpan install inc::Module::Package && \
-    cpan install Module::Install::ManifestSkip && \ 
     ./configure \
         --enable-graphviz \
         --enable-gd \
@@ -69,9 +66,9 @@ RUN echo mail > /etc/hostname; \
     cpanm git://github.com/gbarr/perl-TimeDate.git && \
 # Clean up
     apt remove -y git cpanminus build-essential && \
-    apt autoremove -y && \
-    apt clean && \
-    apt autoclean && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /root/.cpan && \
     rm -rf /root/.cpanm && \
