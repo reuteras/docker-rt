@@ -49,6 +49,7 @@ RUN echo mail > /etc/hostname; \
         perl -MCPAN -e shell && \
     cpan install inc::Module::Install  && \
     cpan install inc::Module::Package && \
+    cpan install Module::Install::ManifestSkip && \ 
     ./configure \
         --enable-graphviz \
         --enable-gd \
