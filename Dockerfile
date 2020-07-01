@@ -1,5 +1,5 @@
 FROM debian:jessie
-MAINTAINER PR <code@ongoing.today>
+LABEL maintainer="Coding <code@ongoing.today>"
 
 # Perl settings -n to don't to tests
 ENV RT_FIX_DEPS_CMD /usr/bin/cpanm
