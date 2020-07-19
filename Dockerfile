@@ -88,7 +88,7 @@ RUN chmod +x /entrypoint.sh && \
     /usr/sbin/lighty-enable-mod ssl && \
     chmod 770 /opt/rt5/etc && \
     chmod 660 /opt/rt5/etc/RT_SiteConfig.pm && \
-    chown rt-service:www-data /opt/rt5/var && \
+    chown -R rt-service:www-data /opt/rt5/var && \
     chmod 0770 /opt/rt5/var
 
 EXPOSE 443
