@@ -46,9 +46,7 @@ RUN echo mail > /etc/hostname; \
     curl -SL https://download.bestpractical.com/pub/rt/release/rt.tar.gz | \
         tar -xzC /tmp/rt && \
     cd /tmp/rt/rt* && \
-    #echo "o conf init " | \
     (echo y;echo o conf prerequisites_policy follow;echo o conf commit) | perl -MCPAN -e shell && \
-    #    perl -MCPAN -e shell && \
     ./configure \
         --enable-graphviz \
         --enable-gd \
