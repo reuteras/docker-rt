@@ -20,6 +20,7 @@ RUN echo mail > /etc/hostname; \
         ca-certificates \
         cpanminus \
         curl \
+        elinks \
         git \
         gpgv2 \
         gnupg \
