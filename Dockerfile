@@ -74,6 +74,7 @@ RUN echo mail > /etc/hostname; \
     rm -rf /root/.cpan && \
     rm -rf /root/.cpanm && \
     rm -rf /preseed.txt /usr/share/doc && \
+    rm -rf /tmp/rt && \
     rm -rf /usr/local/share/man /var/cache/debconf/*-old
 
 # Copy files to docker
