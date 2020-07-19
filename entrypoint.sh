@@ -2,9 +2,9 @@
 
 set -e
 
-cp /data/RT_SiteConfig.pm /opt/rt4/etc/RT_SiteConfig.pm
-chown rt-service:www-data /opt/rt4/etc/RT_SiteConfig.pm
-chmod 0640 /opt/rt4/etc/RT_SiteConfig.pm
+cp /data/RT_SiteConfig.pm /opt/rt5/etc/RT_SiteConfig.pm
+chown rt-service:www-data /opt/rt5/etc/RT_SiteConfig.pm
+chmod 0640 /opt/rt5/etc/RT_SiteConfig.pm
 
 cp /data/server.pem /etc/lighttpd/server.pem
 chmod 0400 /etc/lighttpd/server.pem
