@@ -1,6 +1,6 @@
 # docker-rt
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/reuteras/docker-rt.svg?style=plastic)](https://hub.docker.com/r/reuteras/docker-rt/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/reuteras/docker-rt.svg?style=plastic)](https://hub.docker.com/r/reuteras/docker-rt/) ![Linter](https://github.com/reuteras/docker-rt/workflows/Linter/badge.svg)
 
 [RT](https://www.bestpractical.com/rt/), or Request Tracker, is a issue tracking system. Currently build RT latest (5.0.x) and RT 4.4.x.
 
