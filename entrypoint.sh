@@ -10,7 +10,6 @@ cp /data/server.pem /etc/lighttpd/server.pem
 chmod 0400 /etc/lighttpd/server.pem
 chown root:root /etc/lighttpd/server.pem
 
-
 cp /data/server-chain.pem /etc/lighttpd/server-chain.pem
 chmod 0400 /etc/lighttpd/server-chain.pem
 chown root:root /etc/lighttpd/server-chain.pem
