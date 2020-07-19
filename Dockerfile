@@ -1,11 +1,12 @@
-FROM debian:jessie
+FROM debian:buster-slim
 LABEL maintainer="Coding <code@ongoing.today>"
 
+ENV DEBIAN_FRONTEND noninteractive
 # Perl settings -n to don't to tests
 ENV RT_FIX_DEPS_CMD /usr/bin/cpanm
 ENV PERL_CPANM_OPT -n
 
-# Config Postfix
+# Configure Postfix
 RUN echo mail > /etc/hostname; \
     echo "postfix postfix/main_mailer_type string Internet site" > \
         preseed.txt && \
@@ -39,14 +40,15 @@ RUN echo mail > /etc/hostname; \
     groupadd -r rt-service && \
     useradd -r -g rt-service -G www-data rt-service && \
     usermod -a -G rt-service www-data && \
-    mkdir -p --mode=750 /opt/rt4 && \
-    chown rt-service:www-data /opt/rt4 && \
+    mkdir -p --mode=750 /opt/rt5 && \
+    chown rt-service:www-data /opt/rt5 && \
     mkdir -p /tmp/rt && \
     curl -SL https://download.bestpractical.com/pub/rt/release/rt.tar.gz | \
         tar -xzC /tmp/rt && \
     cd /tmp/rt/rt* && \
-    echo "o conf init " | \
-        perl -MCPAN -e shell && \
+    #echo "o conf init " | \
+    (echo y;echo o conf prerequisites_policy follow;echo o conf commit) | perl -MCPAN -e shell && \
+    #    perl -MCPAN -e shell && \
     ./configure \
         --enable-graphviz \
         --enable-gd \
@@ -58,7 +60,7 @@ RUN echo mail > /etc/hostname; \
         --with-db-type=Pg \
         --with-web-user=www-data \
         --with-web-group=www-data \
-        --prefix=/opt/rt4 \
+        --prefix=/opt/rt5 \
         --with-rt-group=rt-service && \
     make fixdeps && \
     make testdeps && \
@@ -85,10 +87,10 @@ RUN chmod +x /entrypoint.sh && \
         /etc/lighttpd/conf-available/10-ssl.conf && \
     /usr/sbin/lighty-enable-mod rt && \
     /usr/sbin/lighty-enable-mod ssl && \
-    chmod 770 /opt/rt4/etc && \
-    chmod 660 /opt/rt4/etc/RT_SiteConfig.pm && \
-    chown rt-service:www-data /opt/rt4/var && \
-    chmod 0770 /opt/rt4/var
+    chmod 770 /opt/rt5/etc && \
+    chmod 660 /opt/rt5/etc/RT_SiteConfig.pm && \
+    chown rt-service:www-data /opt/rt5/var && \
+    chmod 0770 /opt/rt5/var
 
 EXPOSE 443
 
