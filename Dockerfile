@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV RT_FIX_DEPS_CMD /usr/bin/cpanm
 ENV PERL_CPANM_OPT -n
 
-# Configure Postfix
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN echo mail > /etc/hostname; \
     echo "postfix postfix/main_mailer_type string Internet site" > \
         preseed.txt && \
@@ -41,7 +41,8 @@ RUN echo mail > /etc/hostname; \
     groupadd -r rt-service && \
     useradd -r -g rt-service -G www-data rt-service && \
     usermod -a -G rt-service www-data && \
-    mkdir -p --mode=750 /opt/rt5 && \
+    mkdir -p /opt/rt5 && \
+    chmod 0750 /opt/rt5 && \
     chown rt-service:www-data /opt/rt5 && \
     mkdir -p /tmp/rt && \
     curl -SL https://download.bestpractical.com/pub/rt/release/rt.tar.gz | \
