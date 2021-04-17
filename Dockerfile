@@ -65,6 +65,7 @@ RUN echo mail > /etc/hostname; \
     make testdeps && \
     make config-install dirs files-install fixperms instruct && \
     cpanm git://github.com/gbarr/perl-TimeDate.git && \
+    cpanm RT::Extension::TerminalTheme && \
 # Clean up
     apt remove -y git cpanminus build-essential && \
     apt-get autoremove -y && \
